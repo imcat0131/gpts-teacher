@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: alertsimage.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_2c8004da58a54266b9ef4fb6a6e37231 }}/gpts-teacher-app:${{ github.sha }}
+        tags: alertsimage.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_2c8004da58a54266b9ef4fb6a6e37231 }}/gpts-teacher-app:latest
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'app-gpts-api'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_a53eda27adf84d088d93cdcf8bd1d3f4 }}
-        images: 'alertsimage.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_2c8004da58a54266b9ef4fb6a6e37231 }}/gpts-teacher-app:${{ github.sha }}'
+        images: 'alertsimage.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_2c8004da58a54266b9ef4fb6a6e37231 }}/gpts-teacher-app:latest'
