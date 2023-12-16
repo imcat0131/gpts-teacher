@@ -8,6 +8,11 @@ export class GetUser implements IGetUser {
     constructor(@inject('IUserRepository') private userRepository: IUserRepository) {}
 
     async execute(id: string): Promise<User | null> {
-        return await this.userRepository.findById(id);
+        const user = await this.userRepository.findById(id);
+        if (user === null) {
+            // user not found
+            return null;
+        }
+        return user;
     }
 }

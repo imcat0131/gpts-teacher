@@ -5,9 +5,8 @@ import { User } from '../../domain/entities/user';
 
 @injectable()
 export class UserRepositoryImpl implements IUserRepository {
-
     async findById(id: string): Promise<User | null> {
-        // データベースからユーザーを検索するロジック
-        return new User(id, 'Example User'); // 仮の実装
+        const user = await User.findByPk(id);
+        return user;
     }
 }

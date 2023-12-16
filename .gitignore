@@ -7,3 +7,6 @@ dist
 # environment file
 .env
 
+# db config
+/init-db
+create-user.sql
