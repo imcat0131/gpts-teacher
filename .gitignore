@@ -10,3 +10,6 @@ dist
 # db config
 /init-db
 create-user.sql
+
+# ignore
+memo.*

@@ -1,8 +1,6 @@
 // src/main/index.ts
 import express from 'express';
 import { container } from './dependencyInjector';
-import { getUserRoutes } from '../adapter/routers/userRouter';
-import { UserController } from '../adapter/controllers/userController';
 import { helloWorld } from '../adapter/routers/testRouter';
 import sequelize from "../infrastructure/database/config";
 import logger from '../infrastructure/logging/logger';
@@ -17,7 +15,7 @@ sequelize.authenticate()
 });
 
 // DB同期
-sequelize.sync({ force: false })  // forceをtrueにすると、既存のテーブルを削除して再作成します
+sequelize.sync({ force: true })  // forceをtrueにすると、既存のテーブルを削除して再作成します
 .then(() => logger.info('Models synced with the database.'))
 .catch(err => logger.error('Error syncing models with the database:', err));
 
@@ -30,8 +28,16 @@ const app = express();
 app.use('/', helloWorld());
 
 // user endpoint
+import { getUserRoutes } from '../adapter/routers/userRouter';
+import { UserController } from '../adapter/controllers/userController';
 const userController = container.get<UserController>('UserController');
 app.use('/api', getUserRoutes(userController));
+
+// subject endpoint
+import { getSubjectRoutes } from '../adapter/routers/subjectRouter';
+import { SubjectController } from '../adapter/controllers/subjectController';
+const subjectController = container.get<SubjectController>('SubjectController');
+app.use('/api', getSubjectRoutes(subjectController));
 
 // app listen config
 app.listen(3000, () => {
