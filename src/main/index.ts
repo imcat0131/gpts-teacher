@@ -15,7 +15,7 @@ sequelize.authenticate()
 });
 
 // DB同期
-sequelize.sync({ force: true })  // forceをtrueにすると、既存のテーブルを削除して再作成します
+sequelize.sync({ force: false })  // forceをtrueにすると、既存のテーブルを削除して再作成します
 .then(() => logger.info('Models synced with the database.'))
 .catch(err => logger.error('Error syncing models with the database:', err));
 
